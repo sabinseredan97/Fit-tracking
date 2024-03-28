@@ -6,7 +6,16 @@ import { AuthContext } from "./context/AuthContext";
 function App() {
   const { user } = useContext(AuthContext);
   return (
-    <>{!user ? <Link to="/login">Go to login</Link> : <div>{user}</div>}</>
+    <>
+      {!user ? (
+        <div className="flex gap-4">
+          <Link to="/login">Go to login</Link>
+          <Link to="/register">Go to register</Link>
+        </div>
+      ) : (
+        <div>{user}</div>
+      )}
+    </>
   );
 }
 

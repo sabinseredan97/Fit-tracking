@@ -9,6 +9,7 @@ import RootLayout from "./layouts/RootLayout";
 import Overview from "./components/Overview.tsx";
 import Profile from "./components/Profile.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Registration from "./components/authentication/Registration.tsx";
 
 const queyClient = new QueryClient();
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Registration />,
       },
       {
         path: "/overview",

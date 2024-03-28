@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type Data = {
+type AuthData = {
   email: string;
   password: string;
 };
@@ -8,7 +8,11 @@ type Data = {
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = import.meta.env.VITE_BASE_API_URL;
 
-export async function login(data: Data) {
+export async function register(data: AuthData) {
+  return await axios.post("/register", data).then((res) => res.data);
+}
+
+export async function login(data: AuthData) {
   return await axios
     .post("/login?useCookies=true&usePersistCookies=true", data)
     .then((res) => res.data);

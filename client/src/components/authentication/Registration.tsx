@@ -1,13 +1,8 @@
-import { useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Cookies from "js-cookie";
-import { login } from "../../api/axios";
-import axios from "axios";
-import { AuthContext } from "../../context/AuthContext";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -18,6 +13,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { register } from "@/api/axios";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
@@ -34,12 +32,9 @@ const formSchema = z.object({
     }),
 });
 
-export default function Login() {
+export default function Registration() {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const [headerBearer, setHeaderBearer] = useState(
-    Cookies.get(".AspNetCore.Identity.Application")
-  );
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,17 +44,14 @@ export default function Login() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    //e.preventDefault();
     try {
-      await login(values);
-      setHeaderBearer(Cookies.get(".AspNetCore.Identity.Application"));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${headerBearer}`;
-      window.location.reload();
+      const response = await register(values);
+      console.log(response);
+      navigate("/login");
     } catch (error) {
       console.log(error);
     }
   }
-
   return (
     <div className="bg-gray-200 flex justify-center border rounded-lg gap-2 mt-2">
       {user ? (
@@ -106,13 +98,13 @@ export default function Login() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Log in</Button>
+                <Button type="submit">Submit</Button>
               </form>
             </Form>
           </div>
-          <Link to="/register">
+          <Link to="/login">
             <Button variant="link" className="text-blue-500">
-              Create an account
+              Log into your account
             </Button>
           </Link>
         </div>
