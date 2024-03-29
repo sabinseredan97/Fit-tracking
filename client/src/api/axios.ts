@@ -19,7 +19,7 @@ export async function login(data: AuthData) {
 }
 
 export async function logout() {
-  return await axios.post("Account/logout").then((res) => res.data);
+  return await axios.post("/Account/logout").then((res) => res.data);
 }
 
 export async function getRequest() {
