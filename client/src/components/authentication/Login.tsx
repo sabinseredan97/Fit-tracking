@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import fk2p_ymhy_230421 from "@/assets/fk2p_ymhy_230421.jpg";
 
 const passwordValidation = new RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
@@ -61,25 +62,31 @@ export default function Login() {
   }
 
   return (
-    <div className="bg-gray-200 flex justify-center border rounded-lg gap-2 mt-2">
+    <section>
       {user ? (
         <Navigate to="/overview" />
       ) : (
-        <div className="m-auto p-1">
-          <div className="gap-2">
+        <div className="font-[sans-serif] text-[#333] max-w-7xl mx-auto h-screen">
+          <div className="grid md:grid-cols-2 items-center gap-8 h-full">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-8"
+                className="space-y-6 max-w-lg max-md:mx-auto w-full p-6"
               >
                 <FormField
                   control={form.control}
                   name="email"
                   render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder="email" {...field} />
+                    <FormItem className="relative">
+                      <FormLabel className="text-[15px] mb-3 block">
+                        Email
+                      </FormLabel>
+                      <FormControl className="relative flex items-center">
+                        <Input
+                          placeholder="email"
+                          {...field}
+                          className="w-full text-sm bg-gray-100 px-4 py-4 rounded-md outline-blue-600"
+                        />
                       </FormControl>
                       <FormDescription>Type your email here.</FormDescription>
                       <FormMessage />
@@ -91,11 +98,14 @@ export default function Login() {
                   name="password"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
+                      <FormLabel className="text-[15px] mb-3 block">
+                        Password
+                      </FormLabel>
+                      <FormControl className="relative flex items-center">
                         <Input
                           type="password"
                           placeholder="password"
+                          className="w-full text-sm bg-gray-100 px-4 py-4 rounded-md outline-blue-600"
                           {...field}
                         />
                       </FormControl>
@@ -106,17 +116,35 @@ export default function Login() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Log in</Button>
+                <Button
+                  type="submit"
+                  className="w-full shadow-xl py-3 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                >
+                  Log in
+                </Button>
+                <p className="text-sm text-center">
+                  Don't have an account?
+                  <Link to="/register">
+                    <Button
+                      variant="link"
+                      className="text-blue-600 font-semibold"
+                    >
+                      Register here
+                    </Button>
+                  </Link>
+                </p>
               </form>
             </Form>
+            <div className="h-full md:py-6 flex items-center relative max-md:before:hidden before:absolute before:bg-gradient-to-r before:from-gray-50 before:via-[#E4FE66] before:to-[#55F5A3] before:h-full before:w-3/4 before:right-0 before:z-02">
+              <img
+                src={fk2p_ymhy_230421}
+                className="rounded-md lg:w-4/5 md:w-11/12 z-50 relative"
+                alt="Image"
+              />
+            </div>
           </div>
-          <Link to="/register">
-            <Button variant="link" className="text-blue-500">
-              Create an account
-            </Button>
-          </Link>
         </div>
       )}
-    </div>
+    </section>
   );
 }

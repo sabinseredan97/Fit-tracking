@@ -6,6 +6,8 @@ export default function Profile() {
   const { user } = useContext(AuthContext);
 
   return (
-    <div>{!user ? <Navigate to="/login" replace={true} /> : "Profile"}</div>
+    <div className="p-1">
+      {!user ? <Navigate to="/login" replace={true} /> : "Profile"}
+    </div>
   );
 }

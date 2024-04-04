@@ -6,6 +6,8 @@ export default function Overview() {
   const { user } = useContext(AuthContext);
 
   return (
-    <div>{!user ? <Navigate to="/login" replace={true} /> : "Overview"}</div>
+    <div className="p-1">
+      {!user ? <Navigate to="/login" replace={true} /> : "Overview"}
+    </div>
   );
 }
