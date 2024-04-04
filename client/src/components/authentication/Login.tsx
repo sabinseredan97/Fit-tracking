@@ -50,7 +50,6 @@ export default function Login() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    //e.preventDefault();
     try {
       await login(values);
       setHeaderBearer(Cookies.get(".AspNetCore.Identity.Application"));
